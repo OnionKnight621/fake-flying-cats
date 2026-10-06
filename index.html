@@ -123,6 +123,8 @@
 
   /* Режим учителя */
   #gear { position: fixed; top: 12px; right: 12px; z-index: 100; width: 74px; height: 74px; padding: 0; font-size: 40px; border-radius: 50%; background: #fff; }
+  #gear { display: none; }
+  body.unlocked #gear { display: block; }
   #gear[aria-pressed="true"] { background: var(--red); }
   #legend { display: none; position: fixed; left: 12px; bottom: 12px; z-index: 100; background: #fff; border: 5px solid var(--red); border-radius: 16px; padding: 12px 18px; font-size: 20px; max-width: 420px; }
   #legend b { color: var(--red); }
@@ -141,7 +143,7 @@
 </head>
 <body>
 
-<button id="gear" type="button" aria-pressed="false" title="Режим учителя (клавіша T)">⚙️</button>
+<button id="gear" type="button" aria-pressed="false" title="Режим учителя (клавіша T, сховати: Ctrl+Alt+K)">⚙️</button>
 <div id="legend">
   <b>Режим учителя</b><br>
   <b>1</b> — Для кого і з якою метою сайт?<br>
@@ -356,17 +358,25 @@
     document.getElementById('paidDlg').showModal();
   });
 
-  // Режим учителя: шестерня або клавіша T
+  // Режим учителя. Спершу схований: розблокувати Ctrl+Alt+K або в консолі teacher() / вчитель().
+  // Після розблокування працюють шестерня і клавіша T.
   var gear = document.getElementById('gear');
-  function toggleTeacher() {
-    var on = document.body.classList.toggle('teacher');
+  function setTeacher(on) {
+    document.body.classList.toggle('teacher', on);
     gear.setAttribute('aria-pressed', on);
   }
-  gear.onclick = toggleTeacher;
+  function teacher() {
+    var unlocked = document.body.classList.toggle('unlocked');
+    setTeacher(unlocked);
+    return unlocked ? 'Режим учителя розблоковано 🔓' : 'Режим учителя сховано 🔒';
+  }
+  window.teacher = window.вчитель = teacher;
+  gear.onclick = function () { setTeacher(!document.body.classList.contains('teacher')); };
   document.addEventListener('keydown', function (e) {
+    if (e.ctrlKey && e.altKey && e.code === 'KeyK') { e.preventDefault(); teacher(); return; }
     if (e.code !== 'KeyT' || e.ctrlKey || e.metaKey || e.altKey) return;
-    if (/INPUT|TEXTAREA/.test(e.target.tagName)) return;
-    toggleTeacher();
+    if (!document.body.classList.contains('unlocked') || /INPUT|TEXTAREA/.test(e.target.tagName)) return;
+    setTeacher(!document.body.classList.contains('teacher'));
   });
 </script>
 </body>
