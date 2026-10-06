@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Літаючі Котики з Котополя!!!</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🐱%3C/text%3E%3C/svg%3E">
+<!-- Шрифти з інтернету; без мережі спрацюють системні з font-family нижче -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;800&display=swap">
+<style>
+  :root { --pink:#ff4fa3; --yellow:#ffe14d; --blue:#3ec5ff; --purple:#8a3ffc; --red:#e60000; }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; font-family: Nunito, "Comic Sans MS", "Trebuchet MS", Arial, sans-serif;
+    font-size: 22px; line-height: 1.4; color: #222;
+    background: repeating-linear-gradient(45deg, #fff7b0 0 40px, #ffe0f0 40px 80px);
+  }
+  a { color: inherit; }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+  section { margin: 40px 0; padding: 30px; background: #fff; border: 6px solid var(--pink); border-radius: 30px; box-shadow: 10px 10px 0 var(--purple); }
+  h1, h2 { margin: 0 0 16px; text-shadow: 3px 3px 0 var(--yellow); font-family: Pacifico, "Comic Sans MS", cursive; font-weight: normal; }
+  h1 { font-size: clamp(40px, 6vw, 80px); color: var(--pink); text-align: center; line-height: 1.3; }
+  h2 { font-size: 44px; color: var(--purple); }
+
+  /* Небо з котиками */
+  .sky { position: relative; height: 340px; overflow: hidden; border-radius: 30px; border: 6px solid #fff;
+         background: linear-gradient(#3ec5ff, #bdeeff 70%, #fff3c4); box-shadow: 10px 10px 0 var(--purple); }
+  .cloud { position: absolute; width: 160px; height: 50px; background: #fff; border-radius: 50px; opacity: .9;
+           animation: drift linear infinite; }
+  .cloud::before, .cloud::after { content: ""; position: absolute; background: #fff; border-radius: 50%; }
+  .cloud::before { width: 70px; height: 70px; left: 22px; top: -36px; }
+  .cloud::after { width: 90px; height: 90px; left: 60px; top: -50px; }
+  @keyframes drift { from { transform: translateX(-220px); } to { transform: translateX(1300px); } }
+  .skycat { position: absolute; left: 0; animation: across linear infinite; }
+  .skycat > div { animation: bob 1.2s ease-in-out infinite alternate; position: relative; }
+  .skycat.back .cat { transform: scaleX(-1); }
+  .skycat.back { animation-name: across-back; }
+  @keyframes across { from { transform: translateX(-260px); } to { transform: translateX(1300px); } }
+  @keyframes across-back { from { transform: translateX(1300px); } to { transform: translateX(-260px); } }
+  .trail { position: absolute; right: 92%; top: 40%; font-size: 26px; white-space: nowrap; animation: blink .6s steps(2) infinite; }
+  .back .trail { right: auto; left: 92%; }
+  button, .btn {
+    font: inherit; font-size: 28px; font-weight: bold; cursor: pointer; text-decoration: none; display: inline-block;
+    padding: 16px 34px; border: 5px solid #222; border-radius: 50px; background: var(--yellow); color: #222;
+    box-shadow: 5px 5px 0 #222;
+  }
+  button:active, .btn:active { transform: translate(3px, 3px); box-shadow: 2px 2px 0 #222; }
+
+  /* Шапка */
+  header { background: var(--purple); color: #fff; padding: 12px 0; }
+  header nav { display: flex; flex-wrap: wrap; gap: 10px 26px; align-items: center; justify-content: center; font-size: 24px; }
+  header nav a, header nav button { color: #fff; background: none; border: none; box-shadow: none; padding: 4px; font-size: 24px; font-weight: normal; text-decoration: underline wavy var(--yellow); }
+  .marquee { background: var(--red); color: #fff; font-weight: bold; font-size: 26px; padding: 8px 0; white-space: nowrap; overflow: hidden; }
+  .marquee span { display: inline-block; padding-left: 100%; animation: marquee 20s linear infinite; }
+  @keyframes marquee { to { transform: translateX(-100%); } }
+
+  .hero { text-align: center; padding: 40px 20px 10px; }
+  .slogan { font-size: 32px; font-weight: bold; color: var(--purple); }
+  .blink { animation: blink 1s steps(2) infinite; }
+  @keyframes blink { 50% { opacity: .2; } }
+
+  /* Котики */
+  .cat { width: 100%; height: auto; overflow: visible; }
+  .wing { transform-box: fill-box; transform-origin: 50% 100%; animation: flap .25s ease-in-out infinite alternate; }
+  @keyframes flap { to { transform: scaleY(.45); } }
+  #flyer { position: fixed; top: 0; left: 0; width: 170px; z-index: 5; pointer-events: none; animation: fly 22s linear infinite; }
+  #flyer > div { animation: bob 1.4s ease-in-out infinite alternate; }
+  @keyframes fly {
+    0%   { transform: translate(-200px, 25vh) rotate(-6deg); }
+    25%  { transform: translate(25vw, 8vh) rotate(4deg); }
+    50%  { transform: translate(55vw, 45vh) rotate(-4deg); }
+    75%  { transform: translate(80vw, 15vh) rotate(6deg); }
+    100% { transform: translate(110vw, 35vh) rotate(-6deg); }
+  }
+  @keyframes bob { to { transform: translateY(-30px); } }
+
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+  .card { border: 5px dashed var(--blue); border-radius: 24px; padding: 20px; text-align: center; background: #f0fbff; }
+  .card .cat { max-width: 220px; }
+  .card h3 { font-size: 30px; margin: 8px 0; }
+  .old { text-decoration: line-through; color: #888; font-size: 24px; }
+  .new { font-size: 42px; font-weight: bold; color: var(--red); }
+  .deal { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; justify-content: center; margin: 20px 0; text-align: center; }
+  .sale { background: var(--red); color: #fff; font-size: 44px; font-weight: bold; padding: 10px 26px; border-radius: 20px; transform: rotate(-4deg); }
+  .timer { font-size: 54px; font-weight: bold; font-family: "Courier New", monospace; background: #222; color: var(--yellow); padding: 6px 24px; border-radius: 16px; }
+  .left { font-size: 34px; font-weight: bold; color: var(--red); }
+  .warn { font-size: 26px; font-weight: bold; background: var(--yellow); padding: 10px 16px; border-radius: 12px; display: inline-block; }
+
+  .photos { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
+  figure { margin: 0; }
+  figure img { display: block; width: 100%; height: auto; border-radius: 20px; border: 6px solid var(--yellow); box-shadow: 8px 8px 0 var(--pink); }
+  figcaption { margin-top: 10px; font-size: 24px; font-weight: bold; text-align: center; }
+  .office { max-width: 640px; }
+
+  .reviews { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+  .review { background: #fff0f8; border-radius: 20px; padding: 20px; font-size: 24px; }
+  .review b { display: block; margin-top: 8px; color: var(--purple); }
+
+  .cert { text-align: center; border: 10px double #c9a400; background: #fffbe6; padding: 24px; border-radius: 10px; }
+  .cert .seal { font-size: 80px; }
+
+  form { display: grid; gap: 18px; max-width: 760px; }
+  label { display: grid; gap: 6px; font-weight: bold; font-size: 26px; }
+  input { font: inherit; font-size: 28px; padding: 12px 16px; border: 4px solid var(--purple); border-radius: 14px; }
+  .safe { font-size: 30px; font-weight: bold; color: #0a8a2a; }
+
+  footer { background: #222; color: #eee; padding: 30px 0 120px; font-size: 22px; }
+  footer p { margin: 8px 0; }
+
+  /* Діалоги */
+  dialog { border: 8px solid var(--pink); border-radius: 30px; padding: 30px; max-width: min(900px, 94vw); text-align: center; font-size: 26px; }
+  dialog::backdrop { background: rgba(60, 0, 90, .6); }
+  .stage { overflow: hidden; height: 230px; position: relative; }
+  .runner { position: absolute; width: 260px; animation: run 2.8s linear infinite; }
+  @keyframes run { from { transform: translateX(-280px); } to { transform: translateX(900px); } }
+  .thanks { font-size: 38px; font-weight: bold; color: var(--pink); }
+  .lesson { background: #e6ffe9; border: 5px solid #0a8a2a; border-radius: 20px; padding: 20px; margin: 20px 0; font-size: 28px; }
+  .lesson strong { color: #0a8a2a; font-size: 34px; }
+
+  /* Режим учителя */
+  #gear { position: fixed; top: 12px; right: 12px; z-index: 100; width: 74px; height: 74px; padding: 0; font-size: 40px; border-radius: 50%; background: #fff; }
+  #gear[aria-pressed="true"] { background: var(--red); }
+  #legend { display: none; position: fixed; left: 12px; bottom: 12px; z-index: 100; background: #fff; border: 5px solid var(--red); border-radius: 16px; padding: 12px 18px; font-size: 20px; max-width: 420px; }
+  #legend b { color: var(--red); }
+  body.teacher #legend { display: block; }
+  body.teacher [data-flag] { position: relative; outline: 5px solid var(--red); outline-offset: 4px; }
+  body.teacher [data-flag]::after {
+    content: attr(data-flag) " · " attr(data-hint);
+    position: absolute; left: 0; top: 100%; margin-top: 8px; z-index: 50;
+    width: max-content; max-width: 340px; white-space: normal; text-align: left;
+    background: var(--red); color: #fff; font: bold 18px/1.25 Arial, sans-serif; text-shadow: none;
+    padding: 6px 10px; border-radius: 10px; pointer-events: none;
+  }
+  body.teacher [data-flag="★"] { outline-color: #ff8c00; }
+  body.teacher [data-flag="★"]::after { background: #c25e00; }
+</style>
+</head>
+<body>
+
+<button id="gear" type="button" aria-pressed="false" title="Режим учителя (клавіша T)">⚙️</button>
+<div id="legend">
+  <b>Режим учителя</b><br>
+  <b>1</b> — Для кого і з якою метою сайт?<br>
+  <b>2</b> — Кому належать права, як давно існує?<br>
+  <b>3</b> — Фізична адреса й телефони<br>
+  <b>4</b> — Дата останнього оновлення<br>
+  <b>★</b> — Інші підозрілі ознаки
+</div>
+
+<div id="flyer" aria-hidden="true"><div class="catslot" data-color="#ff9a3c"></div></div>
+
+<header>
+  <nav data-flag="1" data-hint="Меню про все підряд: незрозуміло, про що сайт">
+    <a href="#top">Головна</a>
+    <a href="#order">Котики</a>
+    <button type="button" id="aboutBtn">Про нас</button>
+    <a href="#top">Погода</a>
+    <a href="#top">Рецепти борщу</a>
+    <a href="#top">Все на світі</a>
+  </nav>
+</header>
+<div class="marquee"><span>🔥 АКЦІЯ!!! -90%!!! ТІЛЬКИ СЬОГОДНІ!!! 🔥 КОТИКИ ЛЕТАЮТЬ!!! 🔥 ЗАМОВЛЯЙ ПОКИ НЕ ПІЗНО!!! 🔥</span></div>
+
+<main class="wrap" id="top">
+  <div class="hero">
+    <h1 data-flag="★" data-hint="Забагато знаків оклику — сайт «кричить», щоб ти не встиг подумати">Літаючі Котики з Котополя!!!!!</h1>
+    <div class="sky" aria-hidden="true">
+      <div class="cloud" style="top:60px;animation-duration:40s"></div>
+      <div class="cloud" style="top:200px;animation-duration:55s;animation-delay:-25s"></div>
+      <div class="cloud" style="top:130px;animation-duration:70s;animation-delay:-50s;transform:scale(.6)"></div>
+      <div class="skycat" style="top:20px;width:110px;animation-duration:16s;animation-delay:-4s;opacity:.85"><div><span class="trail">✨ ✨</span><div class="catslot" data-color="#cfd8e3"></div></div></div>
+      <div class="skycat back" style="top:150px;width:150px;animation-duration:12s;animation-delay:-9s"><div><span class="trail">✨ ✨</span><div class="catslot" data-color="#444"></div></div></div>
+      <div class="skycat" style="top:90px;width:200px;animation-duration:9s"><div><span class="trail">✨ ✨ ✨</span><div class="catslot" data-color="#ff9a3c"></div></div></div>
+    </div>
+    <p class="slogan" data-flag="1" data-hint="Мета розмита: «про все на світі» — це ні про що">Найкращий сайт у світі про все на світі!!!</p>
+    <p class="slogan">Котики, які <span data-flag="★" data-hint="Помилка: правильно «літають»">летають</span>!!! Працюємо <span data-flag="2" data-hint="1847 рік — інтернету ще не було!">з 1847 року</span>!!!</p>
+    <p data-flag="1" data-hint="«Для всіх» — значить, ні для кого конкретно">Наш сайт для всіх: для дітей, дорослих, бабусь, котів і інопланетян!!!</p>
+  </div>
+
+  <section>
+    <h2>📸 Наші котики в польоті!!!</h2>
+    <div class="photos" data-flag="★" data-hint="Фото згенерував штучний інтелект — красива картинка не доказ">
+      <figure>
+        <img src="img/cat-mountains.jpg" width="1408" height="768" alt="Смугастий котик з крилами летить над горами">
+        <figcaption>Котик Барсик над Карпатами!!!</figcaption>
+      </figure>
+      <figure>
+        <img src="img/cat-city.jpg" width="1408" height="768" alt="Черепаховий котик з крилами летить над містом">
+        <figcaption>Котичка Мурка летить на роботу!!!</figcaption>
+      </figure>
+    </div>
+    <p style="text-align:center;font-size:30px;font-weight:bold">100% СПРАВЖНІ ФОТО!!! НЕ ФОТОШОП!!!</p>
+  </section>
+
+  <section id="prices">
+    <h2>🚚 Замовити котика Новою поштою!!!</h2>
+    <div class="deal">
+      <div class="sale blink" data-flag="★" data-hint="Величезна знижка «тільки сьогодні» — тиснуть, щоб ти поспішив">-90% ТІЛЬКИ СЬОГОДНІ!!!</div>
+      <div data-flag="★" data-hint="Таймер після нуля починається знову — це обман">
+        <div>Акція закінчується через:</div>
+        <div class="timer" id="timer">00:03:00</div>
+      </div>
+    </div>
+    <p style="text-align:center"><span class="left" data-flag="★" data-hint="Число ніколи не змінюється — штучний поспіх">Залишилось лише 3 котики!!!</span></p>
+
+    <div class="cards">
+      <div class="card">
+        <div class="catslot" data-color="#cfd8e3"></div>
+        <h3>Котик «Хмаринка»</h3>
+        <div class="old">49 999 грн</div><div class="new">4 999 грн!!!</div>
+        <p>Літає тихо, як хмаринка ☁️</p>
+        <a class="btn" href="#order">Хочу!!!</a>
+      </div>
+      <div class="card">
+        <div class="catslot" data-color="#ff9a3c"></div>
+        <h3>Котик «Реактивний Рудик»</h3>
+        <div class="old">99 999 грн</div><div class="new">9 999 грн!!!</div>
+        <p>Найшвидший! Обганяє літаки ✈️</p>
+        <a class="btn" href="#order">Хочу!!!</a>
+      </div>
+      <div class="card">
+        <div class="catslot" data-color="#444"></div>
+        <h3>Котик «Нічний Політ»</h3>
+        <div class="old">77 777 грн</div><div class="new">7 777 грн!!!</div>
+        <p data-flag="★" data-hint="Помилка: «самий найкращий» — так не кажуть">Самий найкращий котик для ночі 🌙</p>
+        <a class="btn" href="#order">Хочу!!!</a>
+      </div>
+    </div>
+    <p style="text-align:center">Доставка Новою поштою <span data-flag="★" data-hint="Помилка: правильно «протягом»">на протязі</span> 1 дня — котик прилетить у відділення сам!!!</p>
+    <p style="text-align:center"><span class="warn" data-flag="★" data-hint="Без повернення коштів — якщо обдурять, гроші не повернеш">💳 100% передоплата, без повернення коштів!!!</span></p>
+  </section>
+
+  <section>
+    <h2>⭐ Відгуки наших щасливих клієнтів!!!</h2>
+    <div class="reviews" data-flag="★" data-hint="Відгуки не перевірити: хто ці люди? Один — від самого адміністратора">
+      <div class="review">«Купила котика, він полетів, дуже задоволена!»<b>— Оксана, 7 років</b></div>
+      <div class="review">«Замовив трьох котиків. Чекаю вже 5 років. Все чудово!!!»<b>— Петро, 9 років</b></div>
+      <div class="review">«Найкращий сайт! 10 з 10!!!»<b>— Адміністратор цього сайту</b></div>
+      <div class="review">«Мяу.»<b>— Кіт Мурчик, незалежний експерт</b></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="cert" data-flag="★" data-hint="«Міністерства Котячих Справ» не існує — сертифікат вигаданий">
+      <div class="seal">🏅🐾</div>
+      <h2>СЕРТИФІКАТ ЯКОСТІ</h2>
+      <p>Цим засвідчується, що котики дійсно літають і взагалі все чесно.</p>
+      <p><b>Видано: Міністерство Котячих Справ</b><br>Підпис: Головний Кіт 🐾 &nbsp; Печатка: є (повірте)</p>
+    </div>
+  </section>
+
+  <section id="order">
+    <h2>🛒 Оформити замовлення!!!</h2>
+    <p class="safe" data-flag="★" data-hint="«Повірте нам» — не доказ безпеки">✅ Це абсолютно безпечно, повірте нам!</p>
+    <p>Оплатіть зараз, щоб <span data-flag="★" data-hint="Помилка: правильно «взяти участь»">прийняти участь</span> у акції!!!</p>
+    <form id="orderForm" autocomplete="off">
+      <label>Твоє ім'я<input type="text" autocomplete="off" placeholder="Наприклад: Котолюб"></label>
+      <label>Адреса (куди прилетить котик)<input type="text" autocomplete="off" placeholder="Місто, вулиця, будинок"></label>
+      <div data-flag="★" data-hint="Сайт просить дані картки! Ніколи не вводь їх без дорослих" style="display:grid;gap:18px">
+        <label>Номер маминої картки<input type="text" inputmode="numeric" autocomplete="off" maxlength="19" placeholder="0000 0000 0000 0000"></label>
+        <label>Три цифри ззаду картки<input type="text" inputmode="numeric" autocomplete="off" maxlength="3" placeholder="***"></label>
+      </div>
+      <div><button type="submit">💸 ОПЛАТИТИ!!!</button></div>
+    </form>
+  </section>
+
+  <section>
+    <h2>📞 Наші контакти</h2>
+    <p data-flag="3" data-hint="Будинок 0 і квартира -5 не існують, міста Котопіль немає">📍 м. Котопіль, вул. Хмаринна, буд. 0, кв. -5</p>
+    <p data-flag="3" data-hint="Замало цифр — справжній номер має 12 цифр">☎️ +380 97 12 34</p>
+    <p data-flag="3" data-hint="Дивна пошта: справжні сайти так не пишуть">✉️ kotyky.letayut.tochno.ne.shakhrai@pochta.miau</p>
+    <figure class="office" data-flag="3" data-hint="Фото напису не доводить, що місто й адреса існують">
+      <img src="img/cat-kotopil.jpg" width="1191" height="896" loading="lazy" alt="Сірий котик з крильцями біля напису «Котопіль»">
+      <figcaption>Наш головний офіс! Директор на місці 🐾</figcaption>
+    </figure>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p data-flag="2" data-hint="Невідомо, хто власник, і в 1847 році інтернету не було">© хтось там, 1847 рік</p>
+    <p data-flag="2" data-hint="Автора не вказано">Автор сайту: ???</p>
+    <p data-flag="4" data-hint="31 лютого не буває!">Останнє оновлення: 31 лютого</p>
+    <p>Всі права захищені!!! Мабуть.</p>
+  </div>
+</footer>
+
+<dialog id="aboutDlg">
+  <h2>Про нас</h2>
+  <p style="font-size:34px" data-flag="1" data-hint="Жодної інформації: хто ми, навіщо сайт">Ми дуже хороші люди. Повірте.</p>
+  <form method="dialog"><button>Закрити</button></form>
+</dialog>
+
+<dialog id="paidDlg">
+  <div class="stage" aria-hidden="true"><div class="runner"><div class="catslot" data-color="#ff9a3c" data-thief="1"></div></div></div>
+  <p class="thanks">Дякуємо за гроші! Котик вилетів до вас... приблизно ніколи 🐱💨</p>
+  <div class="lesson">
+    <strong>✋ Стоп! Це був навчальний сайт.</strong><br>
+    Ніколи не вводь дані картки на незнайомих сайтах і завжди питай дорослих.
+    <br><small>Нічого нікуди не відправлено, а введені дані вже стерто 🙂</small>
+  </div>
+  <form method="dialog"><button>Зрозуміло!</button></form>
+</dialog>
+
+<script>
+  // Котик у SVG; thief = кепка + мішок з грошима
+  function cat(color, thief) {
+    var wing = 'fill="#fff" stroke="#7cc8ff" stroke-width="4"';
+    return '<svg class="cat" viewBox="0 0 220 170" aria-hidden="true">' +
+      '<g class="wing"><path d="M78 80 C25 20 0 70 35 98 C50 104 68 96 80 90Z" ' + wing + '/>' +
+        '<path d="M70 86 C50 60 30 55 22 70 M74 90 C55 75 40 78 34 92" stroke="#7cc8ff" stroke-width="3" fill="none"/></g>' +
+      '<g class="wing"><path d="M142 80 C195 20 220 70 185 98 C170 104 152 96 140 90Z" ' + wing + '/>' +
+        '<path d="M150 86 C170 60 190 55 198 70 M146 90 C165 75 180 78 186 92" stroke="#7cc8ff" stroke-width="3" fill="none"/></g>' +
+      '<path d="M145 130 q45 5 40 -40" stroke="' + color + '" stroke-width="13" fill="none" stroke-linecap="round"/>' +
+      '<ellipse cx="88" cy="154" rx="12" ry="8" fill="' + color + '"/><ellipse cx="132" cy="154" rx="12" ry="8" fill="' + color + '"/>' +
+      '<ellipse cx="110" cy="122" rx="46" ry="36" fill="' + color + '"/>' +
+      '<ellipse cx="110" cy="128" rx="24" ry="20" fill="#fff" opacity=".35"/>' +
+      '<polygon points="76,52 80,14 102,40" fill="' + color + '"/><polygon points="144,52 140,14 118,40" fill="' + color + '"/>' +
+      '<circle cx="110" cy="72" r="38" fill="' + color + '"/>' +
+      '<circle cx="96" cy="68" r="7" fill="#fff"/><circle cx="124" cy="68" r="7" fill="#fff"/>' +
+      '<circle cx="97" cy="69" r="4" fill="#222"/><circle cx="125" cy="69" r="4" fill="#222"/>' +
+      '<circle cx="86" cy="84" r="7" fill="#ff8fb8" opacity=".6"/><circle cx="134" cy="84" r="7" fill="#ff8fb8" opacity=".6"/>' +
+      '<polygon points="105,80 115,80 110,86" fill="#ff5c8a"/>' +
+      '<path d="M110 86 q-6 8 -12 2 M110 86 q6 8 12 2" stroke="#222" stroke-width="2.5" fill="none"/>' +
+      '<path d="M80 82 h-22 M80 88 l-20 5 M140 82 h22 M140 88 l20 5" stroke="#222" stroke-width="2"/>' +
+      (thief ?
+        '<path d="M74 46 q36 -40 72 0z" fill="#e60000"/><rect x="134" y="40" width="34" height="9" rx="4" fill="#e60000"/>' +
+        '<g><path d="M150 112 q-4 -14 14 -14 q18 0 14 14z" fill="#b8864b"/><circle cx="164" cy="132" r="26" fill="#c9965a"/>' +
+        '<text x="164" y="142" font-size="30" font-weight="bold" text-anchor="middle" fill="#2d6a00">₴</text></g>' : '') +
+      '</svg>';
+  }
+  document.querySelectorAll('.catslot').forEach(function (el) {
+    el.innerHTML = cat(el.dataset.color, el.dataset.thief);
+  });
+
+  // Таймер: після нуля тихенько починається знову
+  var START = 3 * 60, left = START, timerEl = document.getElementById('timer');
+  setInterval(function () {
+    left = left > 0 ? left - 1 : START;
+    var m = Math.floor(left / 60), s = left % 60;
+    timerEl.textContent = '00:' + String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+  }, 1000);
+
+  // Про нас
+  document.getElementById('aboutBtn').onclick = function () { document.getElementById('aboutDlg').showModal(); };
+
+  // Оплата: нічого не відправляємо, одразу стираємо дані
+  var form = document.getElementById('orderForm');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    form.reset();
+    document.getElementById('paidDlg').showModal();
+  });
+
+  // Режим учителя: шестерня або клавіша T
+  var gear = document.getElementById('gear');
+  function toggleTeacher() {
+    var on = document.body.classList.toggle('teacher');
+    gear.setAttribute('aria-pressed', on);
+  }
+  gear.onclick = toggleTeacher;
+  document.addEventListener('keydown', function (e) {
+    if (e.code !== 'KeyT' || e.ctrlKey || e.metaKey || e.altKey) return;
+    if (/INPUT|TEXTAREA/.test(e.target.tagName)) return;
+    toggleTeacher();
+  });
+</script>
+</body>
+</html>
